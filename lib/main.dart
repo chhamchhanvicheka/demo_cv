@@ -155,7 +155,6 @@ class CVHome extends StatelessWidget {
                       _buildSkillChip(context, "Good knowledge of Microsoft Office", true),
                     ],
                   ),
-
                   const SizedBox(height: 40),
 
                   // EXPERIENCE SECTION
