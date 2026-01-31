@@ -25,9 +25,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    // Premium Professional Palette
-    // Light: Slate Blue / Gold / White
-    // Dark: Navy / Amber / Dark Grey
+
     final textTheme = GoogleFonts.interTextTheme(
       isDark ? ThemeData.dark().textTheme : ThemeData.light().textTheme,
     );
@@ -101,6 +99,24 @@ class CVHome extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // CONTACT INFORMATION SECTION
+                  _buildSectionTitle(
+                      context, "Contact Information", FontAwesomeIcons.addressCard),
+                  const SizedBox(height: 16),
+                  _buildContactInfoItem(context, FontAwesomeIcons.envelope,
+                      "Email", "ka703501@gmail.com", "mailto:ka703501@gmail.com"),
+                  const SizedBox(height: 12),
+                  _buildContactInfoItem(context, FontAwesomeIcons.phone,
+                      "Phone", "+855 963 880 440", "tel:+855963880440"),
+                  const SizedBox(height: 12),
+                  _buildContactInfoItem(context, FontAwesomeIcons.locationDot,
+                      "Address", "Phnom Penh", null),
+                  const SizedBox(height: 12),
+                  _buildContactInfoItem(context, FontAwesomeIcons.telegram,
+                      "Telegram", "@Vichekaaaaaaa", "https://t.me/Vichekaaaaaaa"),
+
+                  const SizedBox(height: 40),
+
                   // ABOUT SECTION
                   _buildSectionTitle(
                       context, "About Me", FontAwesomeIcons.user),
@@ -311,7 +327,7 @@ class CVHome extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                "Telecommunication & Network Engineering Student",
+                "Fourth Year Telecommunication and Network Engineering ",
                 textAlign: TextAlign.center,
                 style: GoogleFonts.inter(
                   fontSize: 16,
@@ -320,23 +336,6 @@ class CVHome extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 32),
-
-              // Contact 
-              Wrap(
-                alignment: WrapAlignment.center,
-                spacing: 20,
-                runSpacing: 16,
-                children: [
-                  _buildContactChip(context, FontAwesomeIcons.envelope,
-                      "ka703501@gmail.com", "mailto:ka703501@gmail.com"),
-                  _buildContactChip(context, FontAwesomeIcons.phone,
-                      "+855 963 880 440", "tel:+855963880440"),
-                  _buildContactChip(context, FontAwesomeIcons.locationDot,
-                      "An Doung Ta Orn, Sangkat Somrong krom, Khan Porsenchey, Phnom Penh", null),
-                  _buildContactChip(context, FontAwesomeIcons.telegram,
-                      "Telegram", "https://t.me/Vichekaaaaaaa"),
-                ],
-              ),
             ],
           ),
         ),
@@ -344,38 +343,71 @@ class CVHome extends StatelessWidget {
     );
   }
 
-  Widget _buildContactChip(
-      BuildContext context, IconData icon, String label, String? url) {
-    return Material(
-      color: Colors.white.withOpacity(0.1),
-      borderRadius: BorderRadius.circular(30),
-      child: InkWell(
-        onTap: url != null
-            ? () async {
-                final uri = Uri.parse(url);
-                if (await canLaunchUrl(uri)) {
-                  await launchUrl(uri);
-                }
+  Widget _buildContactInfoItem(
+      BuildContext context, IconData icon, String label, String value, String? url) {
+    final colorScheme = Theme.of(context).colorScheme;
+    
+    return InkWell(
+      onTap: url != null
+          ? () async {
+              final uri = Uri.parse(url);
+              if (await canLaunchUrl(uri)) {
+                await launchUrl(uri);
               }
-            : null,
-        borderRadius: BorderRadius.circular(30),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              FaIcon(icon, color: Colors.white, size: 16),
-              const SizedBox(width: 10),
-              Text(
-                label,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 14,
-                ),
+            }
+          : null,
+      borderRadius: BorderRadius.circular(8),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: colorScheme.secondary.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(8),
               ),
-            ],
-          ),
+              child: FaIcon(
+                icon,
+                color: colorScheme.secondary,
+                size: 18,
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    label,
+                    style: TextStyle(
+                      color: colorScheme.onSurface.withOpacity(0.6),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 0.5,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    value,
+                    style: TextStyle(
+                      color: colorScheme.onSurface,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      height: 1.4,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            if (url != null)
+              Icon(
+                Icons.open_in_new,
+                color: colorScheme.onSurface.withOpacity(0.4),
+                size: 16,
+              ),
+          ],
         ),
       ),
     );
