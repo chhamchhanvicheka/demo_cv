@@ -99,7 +99,7 @@ class CVHome extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // CONTACT INFORMATION SECTION
+                  // CONTACT 
                   _buildSectionTitle(
                       context, "Contact Information", FontAwesomeIcons.addressCard),
                   const SizedBox(height: 16),
